@@ -1,0 +1,24 @@
+#!/bin/sh
+# Commit message file
+MSG_FILE="$1"
+MSG=$(cat "$MSG_FILE")
+
+# Allowed types
+ALLOWED_TYPES="fix|add|wip|sort|test|chore"
+
+# Check format: type: message
+if ! echo "$MSG" | grep -qE "^($ALLOWED_TYPES): .+"; then
+    echo "ERROR: Commit message must follow 'type: message' format."
+    echo "Allowed types: fix, add, wip, sort, test, chore"
+    echo "Message cannot be empty."
+    exit 1
+fi
+
+# Optional: enforce max length of 72 chars for the message
+MAX_LEN=72
+MSG_BODY=$(echo "$MSG" | cut -d':' -f2- | sed 's/^ //')
+if [ ${#MSG_BODY} -gt $MAX_LEN ]; then
+    echo "WARNING: Commit message body is longer than $MAX_LEN characters."
+fi
+
+exit 0
