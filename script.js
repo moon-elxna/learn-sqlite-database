@@ -1,5 +1,4 @@
 //---main---
-import * as db from "./database/data.js";
 const input = [
     {name: "todo", id: "todo_input", value: null},
     {name: "deadline", id:"deadline_input", value: null},
@@ -19,28 +18,22 @@ function insert_database(){
     for(let i = 0; i <input.length; i++){
         document.getElementById(input[i].id).value = input[i].value;
     }
-    //node server to db
-    fetch('http://localhost:3000/insert-task', { // send POST request to backend
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ todo, deadline, done })
-    })
-    .then(res => res.json())
-    .then(data => {
-        console.log(data); // confirmation message
-        alert("Task added!");
-    })
-    .catch(err => console.error(err));
+    const todo = input[0].value;
+    const deadline = input[1].value;
+    const done = input[2].value;
+    //fetch to database over node-server
+    fetch("http://localhost:3000/insert-task", { //sents post request to node serrver insert-task
+        method: "POST", //tells server that this is a post request
+        headers: {"Content-type": "application/json"}, //tells server a json is send
+        body: JSON.stringify({todo, deadline, done})
 
+    })
+        .then(res => res.json()) //converts the server response from JSON to a JS object
+        .then(data => console.log(data)) //logs the response from the server
+        .catch(err => console.error(err)); //catches any network errors and logs them
+    
     //set all values in array back to null
     for(let i = 0; i <input.length; i++){
         input[i].value = null;
     }
-}
-
-function run_database(){
-    fetch('/run-db')
-        .then(response => response.text())
-        .then(text => console.log(text))
-        .catch(err => console.error(err));
 }
