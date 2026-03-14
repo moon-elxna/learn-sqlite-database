@@ -5,11 +5,14 @@ const db = new sqlite3.Database("./data.db");
 //create table
 db.run(`CREATE TABLE IF NOT EXISTS task(id INTEGER PRIMARY KEY, todo, deadline, done)`);
 
-function insert_item(todo, deadline, done){
-    
-    db.run(`INSERT INTO task(todo, deadline, done) VALUES(?,?,?)`, [todo, deadline, done], (err)=>{
-        console.log(err.message);
-    });
+function insert_task(todo, deadline, done){
+    db.run(`INSERT INTO task(todo, deadline, done) VALUES(?,?,?)`, [todo, deadline, done]);
 }
 
-module.exports = {insert_item};
+function get_task(callback){
+    db.all(`SELECT * FROM task`, [], (err, rows) => {
+        callback(err, rows);
+    });
+};
+
+module.exports = {insert_task, get_task};
