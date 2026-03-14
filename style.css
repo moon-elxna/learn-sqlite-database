@@ -1,12 +1,9 @@
-/*---font---*/
+#add_task{
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+}
 
-/*--div---*/
-
-/*---img---*/
-
-/*---btn---*/
-
-/*---media---*/
 @media(max-width: 700px){
     
 }

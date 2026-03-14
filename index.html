@@ -6,10 +6,24 @@
     <link rel="preload" href="style.css" as="style" onload="this.rel='stylesheet'">
     <link rel="preload" href="script.js" as="script">
     <link rel="icon" href="assets/img" type="image/png">
-    <title>TITLE</title>
+    <title>Database</title>
 </head>
 
 <body>
+    <div>
+        <h1>To-Do's</h1>
+        <hr>
+        <h2>Add New To-Do</h2>
+        <div id="add_task">
+            <div><p>To-Do</p><input type="text" id="todo_input"></div>
+            <div><p>Deadline</p><input type="date" id="deadline_input"></div>
+            <div><p>Done</p><input type="checkbox" id="done_input"></div>
+            <div><p>Add To-Do</p><button id="save_btn">+</button></div>
+        </div>
+        <hr>
+        <h2>To-Do List</h2>
+        <div id="display_task"></div>
+    </div>
 </body>
 
 <script src="script.js"></script>
